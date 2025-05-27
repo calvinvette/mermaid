@@ -1,5 +1,4 @@
-/* eslint-env jest */
-import { imgSnapshotTest } from '../../helpers/util.js';
+import { imgSnapshotTest, renderGraph } from '../../helpers/util.ts';
 
 describe('User journey diagram', () => {
   it('Simple test', () => {
@@ -26,6 +25,42 @@ section Order from website
       Sit down: 3: Me
       `,
       {}
+    );
+  });
+
+  it('should render a user journey diagram when useMaxWidth is true (default)', () => {
+    renderGraph(
+      `journey
+title E-Commerce
+section Order from website
+  Add to cart: 5: Me
+section Checkout from website
+  Add payment details: 5: Me
+    `,
+      { journey: { useMaxWidth: true } }
+    );
+    cy.get('svg').should((svg) => {
+      expect(svg).to.have.attr('width', '100%');
+      expect(svg).to.have.attr('height');
+      // const height = parseFloat(svg.attr('height'));
+      // expect(height).to.eq(565);
+      const style = svg.attr('style');
+      expect(style).to.match(/^max-width: [\d.]+px;$/);
+      const maxWidthValue = parseFloat(style.match(/[\d.]+/g).join(''));
+      expect(maxWidthValue).to.eq(700);
+    });
+  });
+
+  it('should render a user journey diagram when useMaxWidth is false', () => {
+    imgSnapshotTest(
+      `journey
+title E-Commerce
+section Order from website
+  Add to cart: 5: Me
+section Checkout from website
+  Add payment details: 5: Me
+    `,
+      { journey: { useMaxWidth: false } }
     );
   });
 });

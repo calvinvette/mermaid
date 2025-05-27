@@ -1,5 +1,4 @@
-/* eslint-env jest */
-import { imgSnapshotTest } from '../../helpers/util';
+import { imgSnapshotTest, renderGraph } from '../../helpers/util.ts';
 
 describe('State diagram', () => {
   it('should render a simple state diagrams', () => {
@@ -9,9 +8,8 @@ describe('State diagram', () => {
     [*] --> State1
     State1 --> [*]
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a long descriptions instead of id when available', () => {
     imgSnapshotTest(
@@ -21,9 +19,8 @@ describe('State diagram', () => {
       [*] --> S1
       state "Some long name" as S1
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a long descriptions with additional descriptions', () => {
     imgSnapshotTest(
@@ -33,22 +30,20 @@ describe('State diagram', () => {
       [*] --> S1
       state "Some long name" as S1: The description
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
-  it('should render a single state with short descr', () => {
+  it('should render a single state with short descriptions', () => {
     imgSnapshotTest(
       `
     stateDiagram
       state "A long long name" as long1
       state "A" as longlonglongid
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
-  it('should render a transition descrions with new lines', () => {
+  it('should render a transition descriptions with new lines', () => {
     imgSnapshotTest(
       `
       stateDiagram
@@ -58,9 +53,8 @@ describe('State diagram', () => {
       S1 --> S3: long line using <br>should work
       S1 --> S4: long line using \\nshould work
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a state with a note', () => {
     imgSnapshotTest(
@@ -72,9 +66,8 @@ describe('State diagram', () => {
       notes.
     end note
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a state with on the left side when so specified', () => {
     imgSnapshotTest(
@@ -86,9 +79,8 @@ describe('State diagram', () => {
       notes with . and  in them.
     end note
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a state with a note together with another state', () => {
     imgSnapshotTest(
@@ -102,9 +94,8 @@ describe('State diagram', () => {
     State1 --> State2 : With +,-
     note left of State2 : This is the note +,-<br/>
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a note with multiple lines in it', () => {
     imgSnapshotTest(
@@ -118,7 +109,7 @@ describe('State diagram', () => {
       And another line...
     end note
     `,
-      {}
+      { logLevel: 0, fontFamily: 'courier' }
     );
   });
   it('should handle multiline notes with different line breaks', () => {
@@ -130,7 +121,7 @@ describe('State diagram', () => {
       Line1<br>Line2<br/>Line3<br />Line4<br	/>Line5
       end note
       `,
-      {}
+      { logLevel: 0, fontFamily: 'courier' }
     );
   });
 
@@ -145,11 +136,10 @@ describe('State diagram', () => {
     State1 --> State2
     State2 --> [*]
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
-  it('should render a simple state diagrams', () => {
+  it('should render a simple state diagrams 2', () => {
     imgSnapshotTest(
       `
     stateDiagram
@@ -158,9 +148,8 @@ describe('State diagram', () => {
     State1 --> State3
     State1 --> [*]
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a simple state diagrams with labels', () => {
     imgSnapshotTest(
@@ -174,9 +163,8 @@ describe('State diagram', () => {
     State2 --> State3 : Transition 5
     State1 --> [*]
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render state descriptions', () => {
     imgSnapshotTest(
@@ -187,11 +175,10 @@ describe('State diagram', () => {
         XState2 : New line
         XState1 --> XState2
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
-  it('should render composit states', () => {
+  it('should render composite states', () => {
     imgSnapshotTest(
       `
       stateDiagram
@@ -206,9 +193,8 @@ describe('State diagram', () => {
         Configuring --> Idle : EvConfig  EvConfig EvConfig  EvConfig EvConfig
       }
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render multiple composit states', () => {
     imgSnapshotTest(
@@ -236,7 +222,7 @@ describe('State diagram', () => {
          }
       }
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
   });
   it('should render forks in composit states', () => {
@@ -258,7 +244,7 @@ describe('State diagram', () => {
         State4 --> [*]
       }
       `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
   });
   it('should render forks and joins', () => {
@@ -276,11 +262,10 @@ describe('State diagram', () => {
       join_state --> State4
       State4 --> [*]
     `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
-  it('should render conurrency states', () => {
+  it('should render concurrency states', () => {
     imgSnapshotTest(
       `
     stateDiagram
@@ -300,9 +285,8 @@ describe('State diagram', () => {
       ScrollLockOn --> ScrollLockOff : EvCapsLockPressed
     }
     `,
-      { logLevel: 0 }
+      { logLevel: 0, fontFamily: 'courier' }
     );
-    cy.get('svg');
   });
   it('should render a state with states in it', () => {
     imgSnapshotTest(
@@ -316,10 +300,11 @@ describe('State diagram', () => {
     `,
       {
         logLevel: 0,
+        fontFamily: 'courier',
       }
     );
   });
-  it('Simplest composit state', () => {
+  it('Simplest composite state', () => {
     imgSnapshotTest(
       `
       stateDiagram
@@ -329,6 +314,7 @@ describe('State diagram', () => {
     `,
       {
         logLevel: 0,
+        fontFamily: 'courier',
       }
     );
   });
@@ -341,8 +327,52 @@ describe('State diagram', () => {
     `,
       {
         logLevel: 0,
+        fontFamily: 'courier',
       }
     );
   });
+  it('should render a state diagram when useMaxWidth is true (default)', () => {
+    renderGraph(
+      `
+    stateDiagram
+    [*] --> State1
+    State1 --> [*]
+      `,
+      { state: { useMaxWidth: true } }
+    );
+    cy.get('svg').should((svg) => {
+      expect(svg).to.have.attr('width', '100%');
+      // expect(svg).to.have.attr('height');
+      // const height = parseFloat(svg.attr('height'));
+      // expect(height).to.be.within(176, 178);
+      const style = svg.attr('style');
+      expect(style).to.match(/^max-width: [\d.]+px;$/);
+      const maxWidthValue = parseFloat(style.match(/[\d.]+/g).join(''));
+      // use within because the absolute value can be slightly different depending on the environment ±5%
+      // Todo investigate difference
+      // expect(maxWidthValue).to.be.within(112 * .95, 112 * 1.05);
+      expect(maxWidthValue).to.be.within(65, 85);
+    });
+  });
+  it('should render a state diagram when useMaxWidth is false', () => {
+    renderGraph(
+      `
+    stateDiagram
+    [*] --> State1
+    State1 --> [*]
+      `,
+      { state: { useMaxWidth: false } }
+    );
+    cy.get('svg').should((svg) => {
+      // const height = parseFloat(svg.attr('height'));
+      const width = parseFloat(svg.attr('width'));
+      // expect(height).to.be.within(176, 178);
+      // use within because the absolute value can be slightly different depending on the environment ±5%
+      // Todo investigate difference
+      // expect(width).to.be.within(112 * .95, 112 * 1.05);
+      expect(width).to.be.within(65, 85);
 
+      expect(svg).to.not.have.attr('style');
+    });
+  });
 });
